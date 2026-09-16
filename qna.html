@@ -683,8 +683,11 @@
           ? `<a href="${safeCalc}" target="_blank" rel="noopener noreferrer" class="qna-calc-btn">계산해보기 →</a>`
           : '';
 
+        const itemId = item.id || (item.question && item.question.includes('삼일절, 광복절, 추석') ? 'holiday-pay' : '');
+        const idAttr = itemId ? ` id="${escapeHtml(itemId)}"` : '';
+
         return `
-          <li class="qna-item">
+          <li class="qna-item"${idAttr}>
             <button type="button" class="qna-question-btn" aria-expanded="false" aria-controls="qna-panel-${idx}">
               <span class="qna-q-prefix">Q.</span>
               <span class="qna-question-text">${safeQ}</span>
@@ -718,7 +721,26 @@
           }
         });
       });
+
+      // URL 해시(#holiday-pay 등) 자동 펼침 및 스크롤
+      checkHashTarget();
     }
+
+    function checkHashTarget() {
+      const hash = window.location.hash.slice(1);
+      if (!hash) return;
+      const target = document.getElementById(hash);
+      if (target && target.classList.contains('qna-item')) {
+        target.classList.add('is-open');
+        const btn = target.querySelector('.qna-question-btn');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
+      }
+    }
+
+    window.addEventListener('hashchange', checkHashTarget);
 
     function escapeHtml(str) {
       const d = document.createElement('div');
@@ -761,6 +783,7 @@
           tags: ["산재보험", "업무상재해", "당연적용"]
         },
         {
+          id: "holiday-pay",
           question: "삼일절, 광복절, 추석 등 법정 공휴일(빨간 날)에 일하면 휴일수당(1.5배)을 받을 수 있나요?",
           answer: "상시근로자 5인 이상 사업장은 법정 공휴일이 유급휴일로 보장되므로 근무 시 통상임금의 1.5배(8시간 초과분은 2배)의 휴일근로수당을 지급해야 합니다. 반면 상시근로자 5인 미만 사업장은 근로기준법상 법정 공휴일 유급 보장 규정이 적용되지 않아 평일과 동일한 통상 시급(1배)만 지급해도 법 위반이 아닙니다. 다만 주휴일(주 1일)과 '근로자의 날(5월 1일)'은 5인 미만 사업장이라도 전 사업장에 유급휴일로 적용됩니다.",
           law: "근로기준법 제11조(적용 범위), 제55조제2항(공휴일의 유급휴일), 제56조(휴일근로 가산수당)",
