@@ -6,8 +6,8 @@ const content = fs.readFileSync('index.html', 'utf8');
 console.log('--- Deep Validation of Portal index.html ---');
 
 // 1. Check tool cards
-const bossScheduler = content.includes('href="https://shift-scheduler.moow-ui.workers.dev/"') && !content.includes('class="calc-card card-blue is-pending"');
-const bossWagePending = content.includes('class="calc-card card-teal is-pending"');
+const bossScheduler = content.includes('href="https://shift-scheduler.moow-ui.workers.dev/"') && !content.includes('id="boss-btn-scheduler"\n              href="https://shift-scheduler.moow-ui.workers.dev/" \n              class="calc-card card-blue is-pending"');
+const bossHourlyWage = content.includes('href="https://paycalculator.moow-ui.workers.dev/wage/"') && content.includes('class="calc-card card-teal"') && !content.includes('class="calc-card card-teal is-pending"');
 const bossInsPending = content.includes('class="calc-card card-indigo is-pending"');
 
 const workerWage = content.includes('href="https://shift-calculator.moow-ui.workers.dev/"') && !content.includes('class="calc-card card-orange is-pending"');
@@ -16,7 +16,7 @@ const workerNightPending = content.includes('class="calc-card card-rose is-pendi
 
 console.log('Tool cards status:');
 console.log('  Boss Scheduler (Live):', bossScheduler);
-console.log('  Boss Hourly Wage (Pending):', bossWagePending);
+console.log('  Boss Hourly Wage (Live):', bossHourlyWage);
 console.log('  Boss 4-Insurances (Pending):', bossInsPending);
 console.log('  Worker Real Wage (Live):', workerWage);
 console.log('  Worker Severance (Pending):', workerSevPending);
