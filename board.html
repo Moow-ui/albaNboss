@@ -953,6 +953,21 @@
     </div>
   </div>
 
+  <!-- ==========================================================================
+       [모달 3] 자유게시판 글쓰기 사전 안내 모달 (오픈 예정 안내)
+       ========================================================================== -->
+  <div id="notice-modal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 480px; text-align: center; padding: 36px 24px;">
+      <button type="button" class="modal-close-btn" id="close-notice-modal">&times;</button>
+      <div style="font-size: 2.8rem; margin-bottom: 16px;">📢</div>
+      <h2 id="notice-modal-title" style="font-size: 1.3rem; font-weight: 800; margin-bottom: 14px; color: var(--color-text-main);">자유게시판 글쓰기 사전 안내</h2>
+      <p id="notice-modal-msg" style="font-size: 0.98rem; line-height: 1.65; color: var(--color-text-sub); word-break: keep-all; margin-bottom: 24px;">
+        자유게시판 글쓰기는 2027년 3월에 정식으로 열립니다.<br>지금은 운영자가 정리한 사례를 먼저 보여드려요.
+      </p>
+      <button type="button" id="confirm-notice-btn" class="submit-post-btn" style="width: auto; padding: 10px 32px; margin: 0 auto; display: inline-block;">확인</button>
+    </div>
+  </div>
+
   <!-- 하단 푸터 -->
   <footer class="site-footer">
     <div class="container">
@@ -987,8 +1002,34 @@
     let activeTag = 'ALL';
     let currentViewingPost = null; // 현재 상세 모달에서 보고 있는 게시글 객체
 
+    let boardConfig = {
+      write_status: {
+        is_open: false,
+        open_target_date: "2027년 3월",
+        notice_title: "자유게시판 글쓰기 사전 안내",
+        notice_message: "자유게시판 글쓰기는 2027년 3월에 정식으로 열립니다. 지금은 운영자가 정리한 사례를 먼저 보여드려요."
+      }
+    };
+
+    function loadBoardConfig() {
+      fetch('data/board-config.json')
+        .then(res => {
+          if (!res.ok) throw new Error('HTTP error ' + res.status);
+          return res.json();
+        })
+        .then(data => {
+          if (data && data.write_status) {
+            boardConfig = data;
+          }
+        })
+        .catch(err => {
+          console.warn('[board.html] board-config.json fallback:', err);
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       parseUrlParams();
+      loadBoardConfig();
       loadBoardData();
       initTabs();
       initSearchAndFilter();
@@ -1197,6 +1238,12 @@
           ? item.tags.map(t => `<span class="tag-chip">#${escapeHtml(t)}</span>`).join('')
           : '';
 
+        const statItems = [];
+        if (views > 0) statItems.push(`<span class="stat-item">👁️ ${views}</span>`);
+        if (likes > 0) statItems.push(`<span class="stat-item" style="${item.liked ? 'color:var(--color-heart);' : ''}">❤️ ${likes}</span>`);
+        if (comments > 0) statItems.push(`<span class="stat-item">💬 ${comments}</span>`);
+        const statsHtml = statItems.join('');
+
         return `
           <li class="board-card" data-index="${idx}">
             <h2 class="board-card-title">${item.is_sample ? '<span class="sample-tag-badge" style="display:inline-block; font-size:0.75rem; font-weight:700; color:#475569; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:4px; padding:2px 7px; margin-right:6px; vertical-align:middle;">예시 글</span>' : ''}${safeTitle}</h2>
@@ -1209,9 +1256,7 @@
                 <span style="margin-left:6px;">${tagsHtml}</span>
               </div>
               <div class="board-stats">
-                <span class="stat-item">👁️ ${views}</span>
-                <span class="stat-item" style="${item.liked ? 'color:var(--color-heart);' : ''}">❤️ ${likes}</span>
-                <span class="stat-item">💬 ${comments}</span>
+                ${statsHtml}
               </div>
             </div>
           </li>
@@ -1440,9 +1485,38 @@
         contentInput.value = '';
       });
 
-      // 4. 새 글 작성 모달 열기/닫기
+      // 4. 새 글 작성 모달 열기/닫기 또는 오픈 예정 안내
       const writeModal = document.getElementById('write-modal');
+      const noticeModal = document.getElementById('notice-modal');
+
+      const closeNoticeModal = () => {
+        if (noticeModal) noticeModal.classList.remove('is-open');
+      };
+      if (document.getElementById('close-notice-modal')) {
+        document.getElementById('close-notice-modal').addEventListener('click', closeNoticeModal);
+      }
+      if (document.getElementById('confirm-notice-btn')) {
+        document.getElementById('confirm-notice-btn').addEventListener('click', closeNoticeModal);
+      }
+      if (noticeModal) {
+        noticeModal.addEventListener('click', (e) => {
+          if (e.target === noticeModal) closeNoticeModal();
+        });
+      }
+
       document.getElementById('open-write-modal').addEventListener('click', () => {
+        if (!boardConfig.write_status || !boardConfig.write_status.is_open) {
+          const ws = (boardConfig && boardConfig.write_status) || {};
+          const titleEl = document.getElementById('notice-modal-title');
+          const msgEl = document.getElementById('notice-modal-msg');
+          if (titleEl && ws.notice_title) titleEl.textContent = ws.notice_title;
+          if (msgEl && ws.notice_message) {
+            msgEl.innerHTML = escapeHtml(ws.notice_message).replace(/\n/g, '<br>');
+          }
+          if (noticeModal) noticeModal.classList.add('is-open');
+          return;
+        }
+
         document.getElementById('form-type').value = currentType;
         resetWriteModalTagSelector();
         writeModal.classList.add('is-open');

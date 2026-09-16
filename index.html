@@ -557,7 +557,77 @@
       border-top: 1px dashed rgba(244, 63, 94, 0.35) !important;
     }
 
+    /* --------------------------------------------------------------------------
+       4-1. 메인 도구 카드 하단 안내 띠 배너 (명절/이벤트 공지)
+       -------------------------------------------------------------------------- */
+    .announcement-banner-wrap {
+      margin-top: 20px;
+      width: 100%;
+    }
 
+    .announcement-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, #eff6ff 0%, #fef3c7 100%);
+      border: 1px solid #fed7aa;
+      border-radius: var(--radius-md);
+      color: var(--color-text-main);
+      text-decoration: none;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .announcement-banner:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: #f97316;
+    }
+
+    .banner-main-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-grow: 1;
+    }
+
+    .banner-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .banner-text {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #9a3412;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+    }
+
+    .banner-arrow {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #ea580c;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .announcement-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 16px;
+      }
+      .banner-arrow {
+        align-self: flex-end;
+      }
+    }
 
     /* --------------------------------------------------------------------------
        5. 하단 위젯 구역 (정보 광장 6개 카드 Grid)
@@ -588,7 +658,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
-      align-items: start;
+      align-items: stretch;
     }
 
     /* 카드형 위젯 박스 */
@@ -599,7 +669,7 @@
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      /* natural content height to eliminate bottom empty space */
+      height: 100%;
       overflow: hidden;
       transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
     }
@@ -804,7 +874,6 @@
 
     
     .policy-news-meta-row,
-    .module-item-meta,
     .qna-actions-row {
       display: flex;
       align-items: center;
@@ -826,7 +895,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       min-width: 0;
-      flex-shrink: 1;
+      flex: 1 1 auto;
     }
 
     .meta-right-tags {
@@ -839,18 +908,18 @@
     }
 
     .tag-chip {
-      font-size: 0.72rem;
+      font-size: 0.70rem;
       font-weight: 600;
       color: #0369a1;
       background-color: #e0f2fe;
-      padding: 2px 7px;
+      padding: 2px 6px;
       border-radius: var(--radius-full);
       letter-spacing: -0.01em;
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
       flex-shrink: 0;
-      height: 19px;
+      height: 18px;
       line-height: 1;
     }
 
@@ -1037,18 +1106,18 @@
       background-color: #ffffff;
       display: flex;
       flex-direction: column;
+      height: 100%;
     }
 
     .module-card-list {
       flex-grow: 1;
-    }
-
-    .module-card-list {
       list-style: none;
       margin: 0;
       padding: 0;
       display: flex;
       flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
     }
 
     .module-card-item {
@@ -1057,10 +1126,15 @@
       transition: background-color var(--transition-fast);
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      flex: 1 1 auto;
+      min-height: 114px;
+      overflow: hidden;
     }
 
     .module-card-item:last-child {
       border-bottom: none;
+      padding-bottom: 16px;
     }
 
     .module-card-item:hover {
@@ -1106,10 +1180,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 0.78rem;
+      flex-wrap: nowrap;
+      gap: 8px;
+      width: 100%;
+      height: 22px;
+      line-height: 22px;
+      font-size: 0.77rem;
       color: var(--color-text-muted);
+      margin-top: auto;
+      padding-top: 4px;
+      overflow: hidden;
     }
 
     /* --------------------------------------------------------------------------
@@ -1346,13 +1426,13 @@
               </div>
             </a>
 
-            <!-- [사장님 버튼 2] 시급 계산기 -->
+            <!-- [사장님 버튼 2] 사장님 시급 계산기 -->
             <!-- 현재 창에서 자연스럽게 이동 (target="_blank" 미사용) -->
             <a 
               id="boss-btn-hourly-wage"
               href="https://paycalculator.moow-ui.workers.dev/wage/" 
               class="calc-card card-teal"
-              title="시급 계산기로 이동">
+              title="사장님 시급 계산기로 이동">
               <div class="card-icon-wrap">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
@@ -1362,7 +1442,7 @@
               <div class="card-content">
                 <span class="card-badge">추천 도구</span>
                 <!-- [수정 가능] 버튼 제목 -->
-                <h2 class="card-title">시급 계산기</h2>
+                <h2 class="card-title">사장님 시급 계산기</h2>
                 <!-- [수정 가능] 버튼 부제목 설명 -->
                 <p class="card-subtext">주휴수당 포함 표준 인건비 계산</p>
               </div>
@@ -1372,12 +1452,12 @@
               </div>
             </a>
 
-            <!-- [사장님 버튼 3] 4대보험 대납 계산기 (임시 링크) -->
+            <!-- [사장님 버튼 3] 4대보험료 계산기 (임시 링크) -->
             <a 
               id="boss-btn-insurance"
               href="#" 
               class="calc-card card-indigo is-pending" 
-              data-feature-name="4대보험 대납 계산기">
+              data-feature-name="4대보험료 계산기">
               <div class="card-icon-wrap">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -1386,9 +1466,9 @@
               <div class="card-content">
                 <span class="card-badge badge-pending">출시 예정</span>
                 <!-- [수정 가능] 버튼 제목 -->
-                <h2 class="card-title">4대보험 대납 계산기</h2>
+                <h2 class="card-title">4대보험료 계산기</h2>
                 <!-- [수정 가능] 버튼 부제목 설명 -->
-                <p class="card-subtext">사업주 부담금 및 원천징수 간편 산출</p>
+                <p class="card-subtext">근로자·사업주 부담분 간편 산출</p>
               </div>
               <div class="card-action">
                 <span>출시 예정</span>
@@ -1412,13 +1492,13 @@
           hidden>
           <div class="calculator-grid">
             
-            <!-- [알바생 버튼 1] 실급여 계산기 -->
+            <!-- [알바생 버튼 1] 알바 급여 계산기 -->
             <!-- 현재 창에서 자연스럽게 이동 (target="_blank" 미사용) -->
             <a 
               id="worker-btn-salary"
               href="https://shift-calculator.moow-ui.workers.dev/" 
               class="calc-card card-orange"
-              title="실급여 계산기로 이동">
+              title="알바 급여 계산기로 이동">
               <div class="card-icon-wrap">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="12" y1="1" x2="12" y2="23"></line>
@@ -1428,7 +1508,7 @@
               <div class="card-content">
                 <span class="card-badge">필수 도구</span>
                 <!-- [수정 가능] 버튼 제목 -->
-                <h2 class="card-title">실급여 계산기</h2>
+                <h2 class="card-title">알바 급여 계산기</h2>
                 <!-- [수정 가능] 버튼 부제목 설명 -->
                 <p class="card-subtext">세금 공제 후 실제 내 통장에 꽂히는 금액 확인</p>
               </div>
@@ -1490,6 +1570,19 @@
           </div>
         </div>
         <!-- ★★★ [구역 2-2] 알바생 탭 대시보드 끝 ★★★ -->
+
+        <!-- ---------------------------------------------------------------------- -->
+        <!-- [추석/명절 안내 띠 배너] (한국시간 2026-09-28 00:00 만료 자동 숨김)         -->
+        <!-- ---------------------------------------------------------------------- -->
+        <div id="holiday-banner-container" class="announcement-banner-wrap" style="display: none;">
+          <a id="holiday-banner-link" href="qna.html#holiday-pay" class="announcement-banner">
+            <div class="banner-main-group">
+              <span id="holiday-banner-icon" class="banner-icon">🌕</span>
+              <span id="holiday-banner-text" class="banner-text">추석 연휴(9/24~9/26)에 근무하셨나요? 휴일수당 기준 확인하기</span>
+            </div>
+            <span class="banner-arrow">기준 확인하기 →</span>
+          </a>
+        </div>
 
       </div>
     </section>
@@ -1702,6 +1795,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       initSPATabSwitcher();
       initPendingButtons();
+      loadHolidayBanner();
       loadBoard();
       loadPolicyNews();
       loadNews();
@@ -1709,6 +1803,36 @@
       loadQnA();
       loadVideos();
     });
+
+    /**
+     * 0. 메인 도구 카드 하단 안내 띠 배너 로드 (명절/이벤트 자동 만료)
+     */
+    function loadHolidayBanner() {
+      fetch('data/banner.json')
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then(data => {
+          if (!data || !data.active) return;
+          const expiresAt = new Date(data.expires_at).getTime();
+          const now = Date.now();
+          if (now < expiresAt) {
+            const container = document.getElementById('holiday-banner-container');
+            const link = document.getElementById('holiday-banner-link');
+            const text = document.getElementById('holiday-banner-text');
+            const icon = document.getElementById('holiday-banner-icon');
+
+            if (data.link && link) link.href = data.link;
+            if (data.title && text) text.textContent = data.title;
+            if (data.icon && icon) icon.textContent = data.icon;
+            if (container) container.style.display = 'block';
+          }
+        })
+        .catch(err => {
+          console.warn('[loadHolidayBanner] fallback or error:', err);
+        });
+    }
 
     /**
      * 1. SPA 탭 전환 함수
@@ -2258,10 +2382,19 @@
         const bossItems = items.filter(i => i.type === 'boss').slice(0, 4);
         const workerItems = items.filter(i => i.type === 'worker').slice(0, 4);
 
+        function formatStats(views, likes, comments) {
+          const parts = [];
+          if (views > 0) parts.push(`👁️ ${views}`);
+          if (likes > 0) parts.push(`❤️ ${likes}`);
+          if (comments > 0) parts.push(`💬 ${comments}`);
+          return parts.length > 0 ? `<div class="meta-right-tags"><span>${parts.join(' · ')}</span></div>` : '';
+        }
+
         bossList.innerHTML = bossItems.map(item => {
           const commentsCount = (item.commentList ? item.commentList.length : item.comments) || 0;
           const isSample = item.is_sample || item.badge === '예시 글';
           const sampleBadge = isSample ? '<span class="sample-badge" style="display:inline-block; font-size:0.7rem; font-weight:700; color:#475569; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:4px; padding:1px 5px; margin-right:5px; vertical-align:middle;">예시 글</span>' : '';
+          const statsHtml = formatStats(item.views || 0, item.likes || 0, commentsCount);
           return `
             <li class="module-card-item">
               <a href="board.html?tab=boss" target="_blank" rel="noopener noreferrer" class="module-item-title-link">
@@ -2270,11 +2403,9 @@
               <p class="module-item-desc">${escapeHtml(item.content)}</p>
               <div class="module-item-meta">
                 <div class="meta-left">
-                <span>✍️ ${escapeHtml(item.author)} · ${escapeHtml(item.date)}</span>
-              </div>
-              <div class="meta-right-tags">
-                <span>👁️ ${item.views || 0} · ❤️ ${item.likes || 0} · 💬 ${commentsCount}</span>
-              </div>
+                  <span>✍️ ${escapeHtml(item.author)} · ${escapeHtml(item.date)}</span>
+                </div>
+                ${statsHtml}
               </div>
             </li>
           `;
@@ -2282,6 +2413,7 @@
 
         workerList.innerHTML = workerItems.map(item => {
           const commentsCount = (item.commentList ? item.commentList.length : item.comments) || 0;
+          const statsHtml = formatStats(item.views || 0, item.likes || 0, commentsCount);
           return `
             <li class="module-card-item">
               <a href="board.html?tab=worker" target="_blank" rel="noopener noreferrer" class="module-item-title-link">
@@ -2290,11 +2422,9 @@
               <p class="module-item-desc">${escapeHtml(item.content)}</p>
               <div class="module-item-meta">
                 <div class="meta-left">
-                <span>✍️ ${escapeHtml(item.author)} · ${escapeHtml(item.date)}</span>
-              </div>
-              <div class="meta-right-tags">
-                <span>👁️ ${item.views || 0} · ❤️ ${item.likes || 0} · 💬 ${commentsCount}</span>
-              </div>
+                  <span>✍️ ${escapeHtml(item.author)} · ${escapeHtml(item.date)}</span>
+                </div>
+                ${statsHtml}
               </div>
             </li>
           `;
