@@ -1830,32 +1830,67 @@
     });
 
     /**
-     * 0. 메인 도구 카드 하단 안내 띠 배너 로드 (명절/이벤트 자동 만료)
+     * 0. 메인 도구 카드 하단 안내 띠 배너 로드 (시즌/이벤트 자동 교체 및 만료)
      */
     function loadHolidayBanner() {
       fetch('data/banner.json')
         .then(res => {
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.json();
+          return res.text();
         })
-        .then(data => {
-          if (!data || !data.active) return;
-          const expiresAt = new Date(data.expires_at).getTime();
-          const now = Date.now();
-          if (now < expiresAt) {
-            const container = document.getElementById('holiday-banner-container');
-            const link = document.getElementById('holiday-banner-link');
-            const text = document.getElementById('holiday-banner-text');
-            const icon = document.getElementById('holiday-banner-icon');
+        .then(rawText => {
+          const cleanText = rawText.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*/g, '');
+          const data = JSON.parse(cleanText);
 
-            if (data.link && link) link.href = data.link;
-            if (data.title && text) text.textContent = data.title;
-            if (data.icon && icon) icon.textContent = data.icon;
+          const container = document.getElementById('holiday-banner-container');
+          const link = document.getElementById('holiday-banner-link');
+          const text = document.getElementById('holiday-banner-text');
+          const icon = document.getElementById('holiday-banner-icon');
+
+          // 기준 시각 계산 (?today=YYYY-MM-DD 파라미터 지원)
+          let now = Date.now();
+          const urlParams = new URLSearchParams(window.location.search);
+          const todayParam = urlParams.get('today');
+          if (todayParam) {
+            const parsedTime = Date.parse(todayParam.includes('T') ? todayParam : `${todayParam}T00:00:00+09:00`);
+            if (!isNaN(parsedTime)) {
+              now = parsedTime;
+            }
+          }
+
+          let activeBanner = null;
+
+          if (Array.isArray(data)) {
+            // 복수 항목(배열) 지원: starts_at <= now < expires_at 중 첫 번째
+            activeBanner = data.find(item => {
+              if (!item) return false;
+              const start = item.starts_at ? new Date(item.starts_at).getTime() : 0;
+              const expire = item.expires_at ? new Date(item.expires_at).getTime() : Infinity;
+              return now >= start && now < expire;
+            });
+          } else if (data && typeof data === 'object') {
+            // 기존 단일 객체 형식 하위 호환
+            const isActive = data.active !== false;
+            const start = data.starts_at ? new Date(data.starts_at).getTime() : 0;
+            const expire = data.expires_at ? new Date(data.expires_at).getTime() : Infinity;
+            if (isActive && now >= start && now < expire) {
+              activeBanner = data;
+            }
+          }
+
+          if (activeBanner) {
+            if (activeBanner.link && link) link.href = activeBanner.link;
+            if (activeBanner.title && text) text.textContent = activeBanner.title;
+            if (activeBanner.icon && icon) icon.textContent = activeBanner.icon;
             if (container) container.style.display = 'block';
+          } else {
+            if (container) container.style.display = 'none';
           }
         })
         .catch(err => {
           console.warn('[loadHolidayBanner] fallback or error:', err);
+          const container = document.getElementById('holiday-banner-container');
+          if (container) container.style.display = 'none';
         });
     }
 
