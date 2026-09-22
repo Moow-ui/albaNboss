@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>최신 뉴스 아카이브 | ALBA & BOSS 포털</title>
   <meta name="description" content="고용, 노동, 소상공인, 알바 관련 주요 언론 뉴스 전체 모음 및 실시간 검색">
+
+  <!-- Pretendard 글꼴 및 ALBA&BOSS 디자인 토큰 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="assets/css/tokens.css">
   <style>
     :root {
       --color-primary: #2563eb;
@@ -337,20 +341,40 @@
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="container header-container">
-      <a href="index.html" class="text-logo">
-        <span>ALBA</span><span class="logo-accent">&</span><span>BOSS</span>
-      </a>
-      <a href="index.html" class="back-home-link">
-        <span>← 메인 포털 홈</span>
-      </a>
+  <!-- 최상단 헤더 -->
+  <header class="site-header ab-header" id="site-header">
+    <div class="container header-container ab-header-container">
+      <div class="logo-group">
+        <a href="index.html" class="ab-logo" title="ALBA & BOSS 포털 홈으로 이동">
+          <span class="a">ALBA</span><span class="amp">&amp;</span><span class="b">BOSS</span>
+        </a>
+      </div>
+      <nav id="main-nav" class="main-nav" aria-label="메인 메뉴">
+        <ul class="nav-list ab-nav-list">
+          <li class="nav-item"><a href="index.html#dashboard-section" class="nav-link ab-nav-link">계산기 대시보드</a></li>
+          <li class="nav-item"><a href="index.html#widget-section" class="nav-link ab-nav-link is-active active">정보 광장</a></li>
+          <li class="nav-item"><a href="#site-footer" class="nav-link ab-nav-link">고객안내</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
+  <!-- 이동 경로 (Breadcrumb) -->
+  <nav class="ab-breadcrumb" aria-label="이동 경로">
+    <div class="container ab-breadcrumb-container">
+      <ol class="ab-breadcrumb-list">
+        <li><a href="index.html">홈</a></li>
+        <li class="sep" aria-hidden="true">›</li>
+        <li><a href="index.html#widget-section">정보 광장</a></li>
+        <li class="sep" aria-hidden="true">›</li>
+        <li aria-current="page">최신 뉴스</li>
+      </ol>
+    </div>
+  </nav>
+
   <section class="hero-section">
     <div class="container">
-      <span class="hero-badge">고용·노동 시사 아카이브</span>
+      <span class="ab-eyebrow">고용·노동 시사 아카이브</span>
       <h1 class="hero-title">최신 뉴스 전체보기</h1>
       <p class="hero-desc">
         소상공인, 알바, 노동계의 주요 언론 기사와 최신 트렌드를 한곳에서 검색하세요.
@@ -389,9 +413,14 @@
     </div>
   </section>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2026 ALBA & BOSS Portal. 각 기사의 저작권은 해당 언론사에 있습니다.</p>
+  <footer class="site-footer ab-footer" id="site-footer">
+    <div class="container footer-container ab-footer-container">
+      <div class="footer-info">
+        <p class="footer-title ab-footer-title">ALBA & BOSS 포털</p>
+        <p class="footer-text ab-footer-text">사장님과 알바생을 위한 스마트 계산기 및 종합 정보 플랫폼</p>
+      </div>
+      <p class="footer-disclaimer-note ab-footer-note">계산 결과와 정보는 참고용이며, 정확한 판단은 고용노동부(국번없이 1350) 또는 공인노무사와 상담하세요.</p>
+      <p class="footer-copy ab-footer-copy">&copy; 2026 ALBA & BOSS Portal. All rights reserved.</p>
     </div>
   </footer>
 
@@ -622,5 +651,7 @@
       ];
     }
   </script>
+  <!-- ALBA & BOSS 공통 헤더·푸터 레이아웃 모듈 -->
+  <script src="assets/js/layout.js"></script>
 </body>
 </html>
