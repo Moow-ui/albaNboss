@@ -431,3 +431,115 @@ p, .content-text, .qna-answer-text, .tip-content, .board-post-content {
     min-height:40px !important;
   }
 }
+
+/* ==========================================================================
+   7. 라운드 3 (찾기 쉽게) 스타일
+   ========================================================================== */
+/* 3칸 대상 전환 버튼 (전체 / 사장님 / 알바생) */
+.target-tab-wrap {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin-bottom: 16px !important;
+  flex-wrap: wrap !important;
+}
+.target-tab-btn {
+  padding: 8px 20px !important;
+  font-size: var(--ab-fs-14) !important;
+  font-weight: 700 !important;
+  border-radius: var(--ab-r-full) !important;
+  border: 1px solid var(--ab-line) !important;
+  background: var(--ab-surface) !important;
+  color: var(--ab-text-2) !important;
+  cursor: pointer !important;
+  transition: all var(--ab-trans) !important;
+  min-height: 38px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.target-tab-btn:hover {
+  background: var(--ab-surface-2) !important;
+  color: var(--ab-text) !important;
+  border-color: #cbd5e1 !important;
+}
+.target-tab-btn.active {
+  background: var(--ab-navy) !important;
+  color: #ffffff !important;
+  border-color: var(--ab-navy) !important;
+  box-shadow: 0 4px 12px rgba(22, 33, 58, 0.2) !important;
+}
+
+/* 태그 더보기 / 접기 토글 버튼 */
+.tag-toggle-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  font-size: var(--ab-fs-13) !important;
+  font-weight: 700 !important;
+  color: var(--ab-boss) !important;
+  background: var(--ab-surface) !important;
+  border: 1px solid var(--ab-line) !important;
+  padding: 6px 14px !important;
+  border-radius: var(--ab-r-full) !important;
+  cursor: pointer !important;
+  transition: all var(--ab-trans) !important;
+  min-height: 32px !important;
+}
+.tag-toggle-btn:hover {
+  background: var(--ab-surface-2) !important;
+  border-color: var(--ab-boss) !important;
+}
+
+/* 태그 더보기 컨테이너 */
+.tag-extra-wrap {
+  display: contents !important;
+}
+.tag-extra-wrap.is-hidden {
+  display: none !important;
+}
+
+/* 세무·노무 팁 카드 내 계산기 연결 버튼 */
+.tip-calc-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin-top: 14px !important;
+  padding-top: 12px !important;
+  border-top: 1px dashed var(--ab-line) !important;
+}
+.tip-calc-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-size: var(--ab-fs-12) !important;
+  font-weight: 700 !important;
+  color: var(--ab-boss) !important;
+  background: #eff6ff !important;
+  border: 1px solid #bfdbfe !important;
+  padding: 5px 12px !important;
+  border-radius: var(--ab-r-full) !important;
+  text-decoration: none !important;
+  transition: all var(--ab-trans) !important;
+}
+.tip-calc-btn:hover {
+  background: var(--ab-boss) !important;
+  color: #ffffff !important;
+  border-color: var(--ab-boss) !important;
+}
+
+/* 유튜브 썸네일 이미지 */
+.video-thumb-img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform var(--ab-trans) !important;
+}
+.video-card:hover .video-thumb-img {
+  transform: scale(1.04) !important;
+}
+

@@ -517,17 +517,28 @@
     }
 
     function buildTagChips(data) {
-      const tagSet = new Set();
+      // 1. 태그 빈도수 집계
+      const tagCounts = {};
       data.forEach(item => {
         if (Array.isArray(item.tags)) {
-          item.tags.forEach(t => tagSet.add(t.trim()));
+          item.tags.forEach(t => {
+            const clean = t.trim();
+            if (clean) tagCounts[clean] = (tagCounts[clean] || 0) + 1;
+          });
         }
       });
+
+      // 2. 많이 쓰인 순서로 정렬
+      const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]);
 
       const container = document.getElementById('policy-tag-chips');
       container.innerHTML = '<button type="button" class="filter-chip active" data-tag="ALL">전체 보기</button>';
 
-      tagSet.forEach(tag => {
+      const INITIAL_COUNT = 8;
+      const initialTags = sortedTags.slice(0, INITIAL_COUNT);
+      const extraTags = sortedTags.slice(INITIAL_COUNT);
+
+      initialTags.forEach(tag => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'filter-chip';
@@ -535,6 +546,41 @@
         btn.textContent = `#${tag}`;
         container.appendChild(btn);
       });
+
+      if (extraTags.length > 0) {
+        const extraWrap = document.createElement('div');
+        extraWrap.className = 'tag-extra-wrap is-hidden';
+
+        extraTags.forEach(tag => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'filter-chip';
+          btn.dataset.tag = tag;
+          btn.textContent = `#${tag}`;
+          extraWrap.appendChild(btn);
+        });
+        container.appendChild(extraWrap);
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'tag-toggle-btn';
+        toggleBtn.innerHTML = `태그 더보기 (${extraTags.length}) ▾`;
+        toggleBtn.setAttribute('aria-expanded', 'false');
+
+        toggleBtn.addEventListener('click', () => {
+          const isHidden = extraWrap.classList.contains('is-hidden');
+          if (isHidden) {
+            extraWrap.classList.remove('is-hidden');
+            toggleBtn.innerHTML = '태그 접기 ▴';
+            toggleBtn.setAttribute('aria-expanded', 'true');
+          } else {
+            extraWrap.classList.add('is-hidden');
+            toggleBtn.innerHTML = `태그 더보기 (${extraTags.length}) ▾`;
+            toggleBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+        container.appendChild(toggleBtn);
+      }
 
       container.querySelectorAll('.filter-chip').forEach(chip => {
         chip.addEventListener('click', () => {

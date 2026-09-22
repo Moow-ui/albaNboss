@@ -444,6 +444,13 @@
         <span class="search-icon">🔍</span>
       </div>
 
+      <!-- 3칸 대상 전환 버튼 (전체 / 사장님 / 알바생) -->
+      <div id="tips-target-tabs" class="target-tab-wrap" role="tablist" aria-label="대상 구분 선택">
+        <button type="button" class="target-tab-btn active" data-target="ALL" role="tab" aria-selected="true">전체</button>
+        <button type="button" class="target-tab-btn" data-target="사장님" role="tab" aria-selected="false">👔 사장님</button>
+        <button type="button" class="target-tab-btn" data-target="알바생" role="tab" aria-selected="false">🎒 알바생</button>
+      </div>
+
       <div id="tips-tag-chips" class="tag-filter-wrap">
         <button type="button" class="filter-chip active" data-tag="ALL">전체 보기</button>
       </div>
@@ -487,11 +494,47 @@
     let allTipsData = [];
     let currentFilteredData = [];
     let activeTag = 'ALL';
+    let activeTarget = 'ALL';
+    let calculatorLinks = [
+      {
+        keywords: ["주휴수당", "시급", "수습", "최저임금", "임금", "급여", "퇴직금"],
+        calculators: [
+          { name: "사장님 시급 계산기", url: "wage/index.html", is_ready: true },
+          { name: "알바 급여 계산기", url: "https://shift-calculator.moow-ui.workers.dev", is_ready: true }
+        ]
+      },
+      {
+        keywords: ["근무표", "스케줄", "교대", "근무시간", "소정근로"],
+        calculators: [
+          { name: "근무표 완성기", url: "https://shift-scheduler.moow-ui.workers.dev", is_ready: true }
+        ]
+      },
+      {
+        keywords: ["4대보험", "국민연금", "건강보험", "고용보험", "산재보험"],
+        calculators: [
+          { name: "4대보험료 계산기", url: "", is_ready: false }
+        ]
+      }
+    ];
 
     document.addEventListener('DOMContentLoaded', () => {
+      loadCalculatorLinks();
       loadTipsData();
       initSearchAndFilter();
     });
+
+    function loadCalculatorLinks() {
+      fetch('data/calculator-links.json')
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (Array.isArray(data) && data.length > 0) {
+            calculatorLinks = data;
+          }
+        })
+        .catch(err => {
+          console.warn('[tips.html] calculator-links.json fallback:', err);
+        });
+    }
 
     function loadTipsData() {
       fetch('data/tips.json')
@@ -526,26 +569,75 @@
     }
 
     function buildTagChips(data) {
-      const tagSet = new Set();
+      // 1. 태그 빈도수 집계 (대상: ... 은 제외)
+      const tagCounts = {};
       data.forEach(item => {
-        if (item.category) tagSet.add(item.category);
-        if (item.target) tagSet.add(`대상: ${item.target}`);
+        if (item.category) {
+          tagCounts[item.category] = (tagCounts[item.category] || 0) + 1;
+        }
         if (Array.isArray(item.tags)) {
-          item.tags.forEach(t => tagSet.add(t.trim()));
+          item.tags.forEach(t => {
+            const clean = t.trim();
+            if (clean && !clean.startsWith('대상:')) {
+              tagCounts[clean] = (tagCounts[clean] || 0) + 1;
+            }
+          });
         }
       });
+
+      // 2. 많이 쓰인 순서로 정렬
+      const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]);
 
       const container = document.getElementById('tips-tag-chips');
       container.innerHTML = '<button type="button" class="filter-chip active" data-tag="ALL">전체 보기</button>';
 
-      tagSet.forEach(tag => {
+      const INITIAL_COUNT = 8;
+      const initialTags = sortedTags.slice(0, INITIAL_COUNT);
+      const extraTags = sortedTags.slice(INITIAL_COUNT);
+
+      initialTags.forEach(tag => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'filter-chip';
         btn.dataset.tag = tag;
-        btn.textContent = tag.startsWith('대상:') ? tag : `#${tag}`;
+        btn.textContent = `#${tag}`;
         container.appendChild(btn);
       });
+
+      if (extraTags.length > 0) {
+        const extraWrap = document.createElement('div');
+        extraWrap.className = 'tag-extra-wrap is-hidden';
+
+        extraTags.forEach(tag => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'filter-chip';
+          btn.dataset.tag = tag;
+          btn.textContent = `#${tag}`;
+          extraWrap.appendChild(btn);
+        });
+        container.appendChild(extraWrap);
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'tag-toggle-btn';
+        toggleBtn.innerHTML = `태그 더보기 (${extraTags.length}) ▾`;
+        toggleBtn.setAttribute('aria-expanded', 'false');
+
+        toggleBtn.addEventListener('click', () => {
+          const isHidden = extraWrap.classList.contains('is-hidden');
+          if (isHidden) {
+            extraWrap.classList.remove('is-hidden');
+            toggleBtn.innerHTML = '태그 접기 ▴';
+            toggleBtn.setAttribute('aria-expanded', 'true');
+          } else {
+            extraWrap.classList.add('is-hidden');
+            toggleBtn.innerHTML = `태그 더보기 (${extraTags.length}) ▾`;
+            toggleBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+        container.appendChild(toggleBtn);
+      }
 
       container.querySelectorAll('.filter-chip').forEach(chip => {
         chip.addEventListener('click', () => {
@@ -560,26 +652,42 @@
     function initSearchAndFilter() {
       const searchInput = document.getElementById('tips-search-input');
       searchInput.addEventListener('input', filterData);
+
+      // 3칸 대상 전환 버튼 바인딩
+      const targetTabs = document.getElementById('tips-target-tabs');
+      if (targetTabs) {
+        targetTabs.querySelectorAll('.target-tab-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            targetTabs.querySelectorAll('.target-tab-btn').forEach(b => {
+              b.classList.remove('active');
+              b.setAttribute('aria-selected', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+            activeTarget = btn.dataset.target;
+            filterData();
+          });
+        });
+      }
     }
 
     function filterData() {
       const keyword = (document.getElementById('tips-search-input').value || '').trim().toLowerCase();
 
       currentFilteredData = allTipsData.filter(item => {
-        // 태그 필터
-        if (activeTag !== 'ALL') {
-          if (activeTag.startsWith('대상: ')) {
-            const targetVal = activeTag.replace('대상: ', '');
-            if (item.target !== targetVal) return false;
-          } else if (item.category === activeTag) {
-            // 카테고리 매칭 OK
-          } else if (Array.isArray(item.tags) && item.tags.includes(activeTag)) {
-            // 태그 매칭 OK
-          } else {
-            return false;
-          }
+        // 1. 대상 필터 (사장님 / 알바생 / 공통)
+        if (activeTarget !== 'ALL') {
+          if (item.target !== activeTarget && item.target !== '공통') return false;
         }
 
+        // 2. 태그 필터
+        if (activeTag !== 'ALL') {
+          const matchCat = item.category === activeTag;
+          const matchTag = Array.isArray(item.tags) && item.tags.includes(activeTag);
+          if (!matchCat && !matchTag) return false;
+        }
+
+        // 3. 키워드 검색
         if (!keyword) return true;
 
         const title = (item.title || '').toLowerCase();
@@ -611,7 +719,7 @@
         const safeDetail = escapeHtml(item.detail_tip || '');
         const safeCat = escapeHtml(item.category || '노무팁');
         const safeTarget = escapeHtml(item.target || '공통');
-        const safeAuthor = escapeHtml(item.author || '전문 에디터');
+        const safeAuthor = escapeHtml(item.author || 'ALBA&BOSS 편집부');
         const safeDate = escapeHtml(item.date || '');
         const safeLaw = item.law ? escapeHtml(item.law) : '';
 
@@ -621,6 +729,27 @@
 
         const tagsHtml = Array.isArray(item.tags)
           ? item.tags.map(t => `<span class="tag-chip">#${escapeHtml(t)}</span>`).join('')
+          : '';
+
+        // 관련 계산기 버튼 연결
+        const matchedCalcs = [];
+        const textToMatch = `${item.title} ${item.summary} ${Array.isArray(item.tags) ? item.tags.join(' ') : ''}`;
+        calculatorLinks.forEach(group => {
+          const hasMatch = group.keywords.some(k => textToMatch.includes(k));
+          if (hasMatch && Array.isArray(group.calculators)) {
+            group.calculators.forEach(calc => {
+              if (calc.is_ready && !matchedCalcs.some(c => c.name === calc.name)) {
+                matchedCalcs.push(calc);
+              }
+            });
+          }
+        });
+
+        const calcButtonsHtml = matchedCalcs.length > 0
+          ? `<div class="tip-calc-actions">
+              <span style="font-size:0.8rem; font-weight:700; color:var(--ab-text-2); align-self:center; margin-right:4px;">관련 계산기:</span>
+              ${matchedCalcs.map(c => `<a href="${c.url}" target="_blank" rel="noopener noreferrer" class="tip-calc-btn">${escapeHtml(c.name)} →</a>`).join('')}
+            </div>`
           : '';
 
         return `
@@ -641,6 +770,7 @@
               </div>
               <div class="tip-tags">${tagsHtml}</div>
             </div>
+            ${calcButtonsHtml}
           </li>
         `;
       }).join('');

@@ -554,18 +554,31 @@
     }
 
     function buildTagChips(data) {
-      const tagSet = new Set();
+      // 1. 태그 및 뱃지 빈도수 집계
+      const tagCounts = {};
       data.forEach(item => {
-        if (item.badge) tagSet.add(item.badge);
+        if (item.badge) {
+          tagCounts[item.badge] = (tagCounts[item.badge] || 0) + 1;
+        }
         if (Array.isArray(item.tags)) {
-          item.tags.forEach(t => tagSet.add(t.trim()));
+          item.tags.forEach(t => {
+            const clean = t.trim();
+            if (clean) tagCounts[clean] = (tagCounts[clean] || 0) + 1;
+          });
         }
       });
+
+      // 2. 많이 쓰인 순서로 정렬
+      const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]);
 
       const container = document.getElementById('video-tag-chips');
       container.innerHTML = '<button type="button" class="filter-chip active" data-tag="ALL">전체 보기</button>';
 
-      tagSet.forEach(tag => {
+      const INITIAL_COUNT = 8;
+      const initialTags = sortedTags.slice(0, INITIAL_COUNT);
+      const extraTags = sortedTags.slice(INITIAL_COUNT);
+
+      initialTags.forEach(tag => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'filter-chip';
@@ -573,6 +586,41 @@
         btn.textContent = `#${tag}`;
         container.appendChild(btn);
       });
+
+      if (extraTags.length > 0) {
+        const extraWrap = document.createElement('div');
+        extraWrap.className = 'tag-extra-wrap is-hidden';
+
+        extraTags.forEach(tag => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'filter-chip';
+          btn.dataset.tag = tag;
+          btn.textContent = `#${tag}`;
+          extraWrap.appendChild(btn);
+        });
+        container.appendChild(extraWrap);
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'tag-toggle-btn';
+        toggleBtn.innerHTML = `태그 더보기 (${extraTags.length}) ▾`;
+        toggleBtn.setAttribute('aria-expanded', 'false');
+
+        toggleBtn.addEventListener('click', () => {
+          const isHidden = extraWrap.classList.contains('is-hidden');
+          if (isHidden) {
+            extraWrap.classList.remove('is-hidden');
+            toggleBtn.innerHTML = '태그 접기 ▴';
+            toggleBtn.setAttribute('aria-expanded', 'true');
+          } else {
+            extraWrap.classList.add('is-hidden');
+            toggleBtn.innerHTML = `태그 더보기 (${extraTags.length}) ▾`;
+            toggleBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+        container.appendChild(toggleBtn);
+      }
 
       container.querySelectorAll('.filter-chip').forEach(chip => {
         chip.addEventListener('click', () => {
@@ -609,6 +657,13 @@
       renderVideoGrid(currentFilteredData);
     }
 
+    function getYouTubeId(url) {
+      if (!url) return null;
+      const regExp = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/;
+      const match = url.match(regExp);
+      return match ? match[1] : null;
+    }
+
     function renderVideoGrid(items) {
       const container = document.getElementById('video-grid');
       const countEl = document.getElementById('video-total-count');
@@ -626,6 +681,10 @@
         const duration = escapeHtml(item.duration || '00:00');
         const badge = escapeHtml(item.badge || '추천');
         const url = item.url ? encodeURI(item.url) : 'https://www.youtube.com';
+        const videoId = getYouTubeId(item.url);
+        const thumbImgHtml = videoId
+          ? `<img src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg" alt="${safeTitle}" class="video-thumb-img" loading="lazy">`
+          : '';
         const tagsHtml = Array.isArray(item.tags) && item.tags.length > 0
           ? `<span class="tag-chip">#${escapeHtml(item.tags[0])}</span>`
           : '';
@@ -633,6 +692,7 @@
         return `
           <li class="video-card">
             <a href="${url}" target="_blank" rel="noopener noreferrer" class="video-thumb-wrap" title="${safeTitle} 재생 (새 창)">
+              ${thumbImgHtml}
               <div class="video-thumb-overlay">
                 <div class="play-btn-circle">▶</div>
               </div>

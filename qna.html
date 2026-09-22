@@ -621,25 +621,61 @@
     }
 
     /**
-     * 태그 칩 버튼 동적 생성
+     * 태그 칩 버튼 동적 생성 (상위 8개 제한 + 더보기/접기)
      */
     function buildTagFilters(data) {
-      const tagSet = new Set();
+      const tagCounts = {};
       data.forEach(item => {
         if (Array.isArray(item.tags)) {
-          item.tags.forEach(t => tagSet.add(t));
+          item.tags.forEach(t => {
+            tagCounts[t] = (tagCounts[t] || 0) + 1;
+          });
         }
       });
 
+      const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]);
+      const topTags = sortedTags.slice(0, 8);
+      const extraTags = sortedTags.slice(8);
+
       const container = document.getElementById('tag-filter-list');
-      tagSet.forEach(tag => {
+      const allBtn = container.querySelector('[data-tag="ALL"]');
+      container.innerHTML = '';
+      if (allBtn) container.appendChild(allBtn);
+
+      const renderTagBtn = (tag) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'filter-chip';
         btn.setAttribute('data-tag', tag);
         btn.textContent = `#${tag}`;
-        container.appendChild(btn);
+        return btn;
+      };
+
+      topTags.forEach(tag => {
+        container.appendChild(renderTagBtn(tag));
       });
+
+      if (extraTags.length > 0) {
+        const extraWrap = document.createElement('div');
+        extraWrap.className = 'tag-extra-wrap is-hidden';
+        extraWrap.id = 'qna-extra-tags';
+        extraTags.forEach(tag => {
+          extraWrap.appendChild(renderTagBtn(tag));
+        });
+        container.appendChild(extraWrap);
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'tag-toggle-btn';
+        toggleBtn.innerHTML = `태그 더보기 (${extraTags.length}) &#x25BE;`;
+        toggleBtn.addEventListener('click', () => {
+          const isHidden = extraWrap.classList.toggle('is-hidden');
+          toggleBtn.innerHTML = isHidden 
+            ? `태그 더보기 (${extraTags.length}) &#x25BE;` 
+            : `태그 접기 &#x25B4;`;
+        });
+        container.appendChild(toggleBtn);
+      }
 
       // 태그 클릭 이벤트
       container.addEventListener('click', (e) => {

@@ -1,0 +1,37 @@
+[
+  {
+    "keywords": ["주휴수당", "시급", "수습", "최저임금", "임금", "급여", "퇴직금"],
+    "calculators": [
+      {
+        "name": "사장님 시급 계산기",
+        "url": "wage/index.html",
+        "is_ready": true
+      },
+      {
+        "name": "알바 급여 계산기",
+        "url": "https://shift-calculator.moow-ui.workers.dev",
+        "is_ready": true
+      }
+    ]
+  },
+  {
+    "keywords": ["근무표", "스케줄", "교대", "근무시간", "소정근로"],
+    "calculators": [
+      {
+        "name": "근무표 완성기",
+        "url": "https://shift-scheduler.moow-ui.workers.dev",
+        "is_ready": true
+      }
+    ]
+  },
+  {
+    "keywords": ["4대보험", "국민연금", "건강보험", "고용보험", "산재보험"],
+    "calculators": [
+      {
+        "name": "4대보험료 계산기",
+        "url": "",
+        "is_ready": false
+      }
+    ]
+  }
+]
