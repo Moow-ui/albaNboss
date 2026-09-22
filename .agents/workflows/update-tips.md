@@ -4,7 +4,7 @@ description: 5인 미만 사업장 사장님과 알바생을 위한 실무 노�
 
 # 노무·세무 팁 갱신 워크플로 (update-tips)
 
-5인 미만 소규모 사업장 사장님과 알바생이 매장 현장에서 즉시 활용할 수 있는 법적 기준 기반의 실무 가이드를 제작하여 [`data/tips.json`](file:///c:/Users/s_kingm0209/OneDrive%20-%20konkuk.ac.kr/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/main/data/tips.json)에 추가합니다.
+5인 미만 소규모 사업장 사장님과 알바생이 매장 현장에서 즉시 활용할 수 있는 법적 기준 기반의 실무 가이드를 제작하여 [`data/tips.json`](data/tips.json)에 추가합니다.
 
 ---
 
@@ -18,7 +18,7 @@ description: 5인 미만 사업장 사장님과 알바생을 위한 실무 노�
 - 해고예고수당(30일 전 예고) 적용 요건
 
 ### 2단계: 내용 작성 및 법적 검증 기준
-- **기준치 파일 준수**: 모든 금액, 시급, 산정식, 요율은 반드시 [`data/standards.json`](file:///c:/Users/s_kingm0209/OneDrive%20-%20konkuk.ac.kr/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/main/data/standards.json)의 데이터와 완벽히 일치해야 합니다.
+- **기준치 파일 준수**: 모든 금액, 시급, 산정식, 요율은 반드시 [`data/standards.json`](data/standards.json)의 데이터와 완벽히 일치해야 합니다.
 - **문장 구조**: `content`는 결론을 첫 문장에 제시하고, 3~4문장으로 명확하게 구성합니다.
 - **근거 명시**: `law` 필드에 근거가 되는 법률 조항(예: 근로기준법 제17조, 제55조 등)을 정확히 명시합니다.
 - **저자 통일**: `author` 필드는 반드시 `"ALBA&BOSS 편집부"`로 설정합니다.

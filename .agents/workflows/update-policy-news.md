@@ -4,7 +4,7 @@ description: 고용노동부 및 4대보험 공단의 알바·노무 정책소�
 
 # 정책소식 갱신 워크플로 (update-policy-news)
 
-알바생, 단시간 근로자, 5인 미만 사업장 사장님에게 직접 해당하는 정부 및 공단의 최신 정책·지원제도 소식을 수집하여 [`data/news.json`](file:///c:/Users/s_kingm0209/OneDrive%20-%20konkuk.ac.kr/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/main/data/news.json)에 반영합니다.
+알바생, 단시간 근로자, 5인 미만 사업장 사장님에게 직접 해당하는 정부 및 공단의 최신 정책·지원제도 소식을 수집하여 [`data/news.json`](data/news.json)에 반영합니다.
 
 ---
 

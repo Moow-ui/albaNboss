@@ -4,7 +4,7 @@ description: 알바생 및 5인 미만 사업장 사장님을 위한 노무 Q&A 
 
 # 노무 Q&A 갱신 워크플로 (update-labor-qa)
 
-현장에서 가장 검색량이 많고 분쟁이 잦은 핵심 노무 질의를 선별하여 법적 근거 조문과 공식 정부 출처 링크를 포함한 Q&A를 제작하고 [`data/qna.json`](file:///c:/Users/s_kingm0209/OneDrive%20-%20konkuk.ac.kr/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/main/data/qna.json)에 추가합니다.
+현장에서 가장 검색량이 많고 분쟁이 잦은 핵심 노무 질의를 선별하여 법적 근거 조문과 공식 정부 출처 링크를 포함한 Q&A를 제작하고 [`data/qna.json`](data/qna.json)에 추가합니다.
 
 ---
 

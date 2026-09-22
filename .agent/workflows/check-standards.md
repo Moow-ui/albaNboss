@@ -17,7 +17,7 @@ description: 법적 기준치(최저임금, 주휴수당, 가산수당 배율, 5
 - **고용보험·산재보험**: 근로복지공단(comwel.or.kr) 보험요율 안내
 
 ### 2단계: 기준치 변동 여부 대조
-수집된 공식 수치와 현재 [`data/standards.json`](file:///c:/Users/s_kingm0209/OneDrive%20-%20konkuk.ac.kr/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/main/data/standards.json)의 값을 비교합니다.
+수집된 공식 수치와 현재 [`data/standards.json`](data/standards.json)의 값을 비교합니다.
 - 최저시급 및 적용 연도
 - 주휴수당 산정 기준 (주 15시간 이상, 1주 소정근로시간/40 * 8 * 시급)
 - 5인 이상 사업장 가산수당 요율 (연장 50%, 야간 50%, 8시간 이내 휴일 50%, 8시간 초과 휴일 100%)

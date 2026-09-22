@@ -1,0 +1,19 @@
+# Cloudflare 배포 제외 목록 (.assetsignore)
+# 사용자에게 공개 웹으로 노출되면 안 되는 내부 문서, 설정, 스크립트 제외
+# 주의: data/ 폴더는 페이지에서 동적으로 로드하므로 절대 제외 금지
+
+# 1. 내부 작업 및 검증 스크립트
+scripts/
+
+# 2. AI 에이전트 설정, 규칙, 워크플로 및 내부 지침서
+.agent/
+.agents/
+AGENTS.md
+
+# 3. 프로젝트 이력 및 개발자 문서
+CHANGELOG.md
+README.md
+
+# 4. 버전 관리 및 환경 설정
+.gitignore
+.git/

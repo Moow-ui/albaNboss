@@ -4,7 +4,7 @@ description: 주요 언론사의 알바·소상공인·외식업 최신 뉴스 �
 
 # 최신 뉴스 갱신 워크플로 (update-news)
 
-알바 채용 시장 동향, 자영업 및 소상공인 실무 정책, 노동법 개정 소식, 외식·서비스업 트렌드를 다룬 주요 언론사의 최신 개별 기사를 선별하여 [`data/articles.json`](file:///c:/Users/s_kingm0209/OneDrive%20-%20konkuk.ac.kr/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/main/data/articles.json)에 추가합니다.
+알바 채용 시장 동향, 자영업 및 소상공인 실무 정책, 노동법 개정 소식, 외식·서비스업 트렌드를 다룬 주요 언론사의 최신 개별 기사를 선별하여 [`data/articles.json`](data/articles.json)에 추가합니다.
 
 ---
 

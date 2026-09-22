@@ -4,7 +4,7 @@ description: 알바 꿀팁 및 매장 운영·노무 유튜브 영상 선별 및
 
 # 추천 영상 갱신 워크플로 (update-videos)
 
-알바생의 첫 근무 꿀팁과 사장님의 실무 매장 운영·노무·세무 가이드를 다룬 신뢰성 있는 유튜브 개별 영상을 선별하여 [`data/videos.json`](file:///c:/Users/s_kingm0209/OneDrive%20-%20konkuk.ac.kr/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/main/data/videos.json)에 추가합니다.
+알바생의 첫 근무 꿀팁과 사장님의 실무 매장 운영·노무·세무 가이드를 다룬 신뢰성 있는 유튜브 개별 영상을 선별하여 [`data/videos.json`](data/videos.json)에 추가합니다.
 
 ---
 
