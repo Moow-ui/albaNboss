@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="60%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative glow circles -->
+  <circle cx="1050" cy="150" r="280" fill="#2563eb" opacity="0.12" filter="blur(60px)"/>
+  <circle cx="150" cy="500" r="240" fill="#0d9488" opacity="0.08" filter="blur(60px)"/>
+
+  <!-- Inner border -->
+  <rect x="36" y="36" width="1128" height="558" rx="24" fill="none" stroke="#334155" stroke-width="2"/>
+
+  <!-- Badge -->
+  <rect x="80" y="90" width="340" height="44" rx="22" fill="url(#accent)"/>
+  <text x="250" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', sans-serif" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">사장님 &amp; 알바생 필수 노무 계산 포털</text>
+
+  <!-- Main Logo & Title -->
+  <text x="80" y="240" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', sans-serif" font-size="84" font-weight="900" fill="#ffffff" letter-spacing="-2">
+    ALBA<tspan fill="#3b82f6"> &amp; </tspan>BOSS
+  </text>
+
+  <!-- Subtitle -->
+  <text x="80" y="315" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', sans-serif" font-size="34" font-weight="600" fill="#94a3b8" letter-spacing="-0.5">
+    2026년 최저시급(10,320원) 기준 스마트 노무·급여 계산기
+  </text>
+
+  <!-- Feature cards container -->
+  <g transform="translate(80, 380)">
+    <!-- Card 1 -->
+    <rect x="0" y="0" width="320" height="130" rx="16" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="30" y="45" font-size="28">👔</text>
+    <text x="75" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="20" font-weight="700" fill="#ffffff">사장님 시급 계산기</text>
+    <text x="30" y="95" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="15" fill="#94a3b8">주휴수당 · 4대보험 · 총인건비</text>
+
+    <!-- Card 2 -->
+    <rect x="345" y="0" width="320" height="130" rx="16" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="375" y="45" font-size="28">🎒</text>
+    <text x="420" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="20" font-weight="700" fill="#ffffff">알바 급여 계산기</text>
+    <text x="375" y="95" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="15" fill="#94a3b8">실수령액 · 가산수당 · 주휴수당</text>
+
+    <!-- Card 3 -->
+    <rect x="690" y="0" width="320" height="130" rx="16" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="720" y="45" font-size="28">📅</text>
+    <text x="765" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="20" font-weight="700" fill="#ffffff">근무표 완성기</text>
+    <text x="720" y="95" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="15" fill="#94a3b8">알바 스케줄 자동 교대 배정</text>
+  </g>
+
+  <!-- URL watermark -->
+  <text x="1100" y="555" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="18" font-weight="600" fill="#475569" text-anchor="end">albanboss.moow-ui.workers.dev</text>
+</svg>

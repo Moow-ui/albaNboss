@@ -183,7 +183,9 @@ function verifyInternalLinks() {
     { name: '추천 영상 전체보기', path: 'videos.html' },
     { name: '자유게시판 전체보기', path: 'board.html' },
     { name: '노무 Q&A 전체보기', path: 'qna.html' },
-    { name: '급여 계산기', path: 'wage/index.html' }
+    { name: '급여 계산기', path: 'wage/index.html' },
+    { name: '이용약관', path: 'terms.html' },
+    { name: '개인정보처리방침', path: 'privacy.html' }
   ];
 
   let internalErrors = 0;

@@ -108,11 +108,18 @@
       footer.innerHTML = `
         <div class="container footer-container ab-footer-container">
           <div class="footer-info">
-            <p class="footer-title ab-footer-title">ALBA & BOSS 포털</p>
+            <p class="footer-title ab-footer-title">ALBA &amp; BOSS 포털</p>
             <p class="footer-text ab-footer-text">사장님과 알바생을 위한 스마트 계산기 및 종합 정보 플랫폼</p>
           </div>
+          <div class="ab-footer-links">
+            <a href="${basePath}terms.html" class="ab-footer-link">이용약관</a>
+            <span class="ab-footer-sep" aria-hidden="true">&middot;</span>
+            <a href="${basePath}privacy.html" class="ab-footer-link privacy">개인정보처리방침</a>
+            <span class="ab-footer-sep" aria-hidden="true">&middot;</span>
+            <span class="ab-footer-contact" title="문의 메일 주소는 준비 중입니다." onclick="alert('문의 이메일 주소는 현재 준비 중입니다.')">문의하기</span>
+          </div>
           <p class="footer-disclaimer-note ab-footer-note">계산 결과와 정보는 참고용이며, 정확한 판단은 고용노동부(국번없이 1350) 또는 공인노무사와 상담하세요.</p>
-          <p class="footer-copy ab-footer-copy">&copy; 2026 ALBA & BOSS Portal. All rights reserved.</p>
+          <p class="footer-copy ab-footer-copy">&copy; 2026 ALBA &amp; BOSS. 비개발자 1인 운영 &middot; 주 1회 업데이트</p>
         </div>
       `;
     }

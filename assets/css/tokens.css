@@ -256,6 +256,38 @@ body{
   font-size:var(--ab-fs-12) !important;
   color:var(--ab-text-3) !important;
 }
+.ab-footer-links{
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  gap:14px !important;
+  margin:10px 0 14px !important;
+  font-size:var(--ab-fs-13) !important;
+}
+.ab-footer-link{
+  color:var(--ab-text-2) !important;
+  text-decoration:none !important;
+  transition:color var(--ab-trans) !important;
+}
+.ab-footer-link:hover{
+  color:var(--ab-boss) !important;
+  text-decoration:underline !important;
+}
+.ab-footer-link.privacy{
+  font-weight:700 !important;
+}
+.ab-footer-sep{
+  color:var(--ab-line-strong) !important;
+  user-select:none !important;
+}
+.ab-footer-contact{
+  color:var(--ab-text-3) !important;
+  cursor:pointer !important;
+  text-decoration:none !important;
+}
+.ab-footer-contact:hover{
+  color:var(--ab-text) !important;
+}
 
 /* ==========================================================================
    5. 메인 도구 카드 & 사장님/알바생 전환 탭
