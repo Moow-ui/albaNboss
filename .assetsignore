@@ -9,6 +9,8 @@ scripts/
 .agent/
 .agents/
 AGENTS.md
+CLAUDE.md
+.claude/
 
 # 3. 프로젝트 이력 및 개발자 문서
 CHANGELOG.md

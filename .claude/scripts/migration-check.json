@@ -1,0 +1,8 @@
+{
+  "repo": "Moow-ui/albaNboss",
+  "siteUrl": "https://albanboss.moow-ui.workers.dev",
+  "paths": ["/", "/wage/", "/tips", "/qna", "/data/standards.json"],
+  "protected": ["assets/js/wage-core.js"],
+  "workflowsDir": ".agents/workflows",
+  "deployIgnoreFile": ".assetsignore"
+}
