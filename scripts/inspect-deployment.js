@@ -3,7 +3,7 @@
 
 const https = require('https');
 
-const BASE_URL = 'https://albanboss.moow-ui.workers.dev';
+const BASE_URL = require('./site-url').siteUrl();
 
 const testPaths = [
   // 1. 백업 폴더들

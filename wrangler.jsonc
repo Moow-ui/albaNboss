@@ -1,0 +1,20 @@
+// 포털 배포 설정 (Cloudflare Workers) — main에 push하면 Cloudflare가 이 설정으로 배포한다.
+// - 저장소 폴더를 정적 파일로 그대로 올린다. 올리지 않을 파일은 .assetsignore에 적는다.
+// - worker/index.js: 옛 주소·www·http 접속을 https://albanboss.com 으로 301 이동
+// - albanboss.com·www.albanboss.com 연결은 Cloudflare 화면(Worker 설정 → 도메인)에서 관리한다.
+{
+  "name": "albanboss",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-09-01",
+  // 옛 주소(albanboss.moow-ui.workers.dev)는 끄지 않는다 — 옛 링크가 새 주소로 이동해야 함
+  "workers_dev": true,
+  "assets": {
+    "directory": "./",
+    "binding": "ASSETS",
+    // 페이지 요청은 주소 확인 코드를 먼저 거치고, 그림·스크립트(/assets)와 데이터(/data)는 바로 제공
+    "run_worker_first": ["/*", "!/assets/*", "!/data/*"]
+  },
+  "observability": {
+    "enabled": true
+  }
+}

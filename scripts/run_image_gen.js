@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const { siteHost } = require('./site-url');
 
 const psScript = `
 Add-Type -AssemblyName System.Drawing
@@ -105,7 +106,7 @@ $ogG.DrawString("알바 스케줄 자동 교대 배정", $cardDescFont, $grayBru
 # Watermark URL
 $urlFont = New-Object System.Drawing.Font("Arial", 14, [System.Drawing.FontStyle]::Bold)
 $dimBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(255, 100, 116, 139))
-$ogG.DrawString("albanboss.moow-ui.workers.dev", $urlFont, $dimBrush, 860, 545)
+$ogG.DrawString("${siteHost()}", $urlFont, $dimBrush, 860, 545)
 
 $ogBmp.Save($ogPath, [System.Drawing.Imaging.ImageFormat]::Png)
 $ogG.Dispose()

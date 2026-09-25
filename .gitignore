@@ -12,6 +12,7 @@ yarn-error.log*
 # Environment & Local
 .env
 .env.local
+.wrangler/
 
 # Claude Code 개인 설정·임시 파일
 .claude/settings.local.json

@@ -19,3 +19,8 @@ README.md
 # 4. 버전 관리 및 환경 설정
 .gitignore
 .git/
+
+# 5. 배포 설정과 주소 이동 Worker 코드 (사이트 파일이 아님)
+wrangler.jsonc
+worker/
+.wrangler/

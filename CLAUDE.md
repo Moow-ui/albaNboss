@@ -4,7 +4,7 @@
 ## 알바앤보스 운영 규칙
 
 ### 저장소 → 배포 주소
-- 포털: Moow-ui/albaNboss → https://albanboss.com (M2 전까지는 https://albanboss.moow-ui.workers.dev. M2 뒤에는 옛 주소가 새 주소로 자동 이동)
+- 포털: Moow-ui/albaNboss → https://albanboss.com (옛 주소 https://albanboss.moow-ui.workers.dev와 www.albanboss.com은 새 주소로 자동 이동(301), 2026-09-25 M2)
   · 사장님 시급 계산기는 포털 안 /wage/ (계산 엔진 assets/js/wage-core.js)
   · 사이트 주소가 필요한 스크립트는 data/site.json의 site_url 한 곳에서만 읽는다
 - 근무표 완성기: Moow-ui/shift-scheduler → https://shift-scheduler.moow-ui.workers.dev (주소 이전은 P8 설계 뒤)
@@ -33,7 +33,8 @@
 
 ## 이 저장소
 - 역할: 알바앤보스 포털(albaNboss). 메인·콘텐츠 페이지(정책소식·뉴스·팁·Q&A·영상·게시판)와 사장님 시급 계산기(/wage/). 콘텐츠는 data/*.json으로 관리한다.
-- 배포: main에 push하면 Cloudflare가 저장소 폴더를 그대로 배포한다. 사이트에 올리지 않을 파일은 .assetsignore에 적는다.
+- 배포: main에 push하면 Cloudflare가 wrangler.jsonc 설정으로 저장소 폴더를 그대로 배포한다. 사이트에 올리지 않을 파일은 .assetsignore에 적는다.
+- 주소 이동: worker/index.js가 옛 주소·www·http 접속을 https://albanboss.com으로 보낸다(/assets/, /data/는 바로 제공). 옛 주소(workers_dev)는 끄지 않는다.
 - 수정 금지 파일: assets/js/wage-core.js (사장님 시급 계산 엔진)
 - 명령어: /weekly-update, /check-standards, /update-policy-news, /update-news, /update-tips, /update-labor-qa, /update-videos — 원본은 .agents/workflows/
 - 테스트 명령: 따로 없음. 계산 결과 확인은 node scripts/record-wage-baseline.js, 링크 점검은 node scripts/check-links.js

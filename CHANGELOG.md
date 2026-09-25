@@ -6,6 +6,8 @@
 
 ## 2026-09-25
 
+- [기능] 새 주소 albanboss.com 전환(M2) — 옛 주소(albanboss.moow-ui.workers.dev)·www·http 접속은 같은 경로·같은 ?값 그대로 https://albanboss.com 으로 한 번에 영구 이동(301). 옛 주소는 계속 켜 둠 (wrangler.jsonc, worker/index.js 추가)
+- [수정] 포털 주소 원본 data/site.json 추가, 전 페이지 SNS 공유 주소(og:url·og:image·twitter:image)와 이용약관의 포털 주소를 albanboss.com으로 교체, 주소가 필요한 스크립트는 site.json을 읽도록 변경
 - [기능] 개발 도구 Claude Code 연결(규칙·명령어 연결, 사이트 변화 없음) — CLAUDE.md, 명령어 7개(/weekly-update 등), 명령 허락 설정, 배포 제외 목록에 CLAUDE.md·.claude/ 추가
 
 ## 2026-09-22
