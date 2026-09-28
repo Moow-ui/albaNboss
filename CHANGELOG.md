@@ -6,6 +6,7 @@
 
 ## 2026-09-28
 
+- [기능][W40-01] sitemap.xml·robots.txt 추가 — 정적 페이지 10개(메인·시급계산기·정책소식·최신뉴스·팁·Q&A·영상·게시판·개인정보처리방침·이용약관) 등록, 주소는 data/site.json의 site_url만 읽어 생성(scripts/generate-sitemap.js), robots.txt에 sitemap 위치 안내
 - [수정] 자동 운영 회사 규칙 연결(M3, 사이트 변화 없음) — CLAUDE.md 끝에 규칙 위치(본부 company/운영매뉴얼.md), main은 GitHub PR 병합으로만, claude/week-* 브랜치는 자동 운영 회사 작업 공간이라는 문장 추가
 
 ## 2026-09-25
