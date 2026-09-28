@@ -4,6 +4,10 @@
 
 ---
 
+## 2026-09-29
+
+- [디자인][W40-02] 공유 이미지(assets/images/og-image.svg·png) 워터마크 옛 주소(albanboss.moow-ui.workers.dev)를 albanboss.com으로 교체. png는 수정된 svg를 그대로 1200x630 렌더링해 재생성(.claude/scripts/regen-og-image.js)
+
 ## 2026-09-28
 
 - [기능][W40-01] sitemap.xml·robots.txt 추가 — 정적 페이지 10개(메인·시급계산기·정책소식·최신뉴스·팁·Q&A·영상·게시판·개인정보처리방침·이용약관) 등록, 주소는 data/site.json의 site_url만 읽어 생성(scripts/generate-sitemap.js), robots.txt에 sitemap 위치 안내
