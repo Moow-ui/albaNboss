@@ -38,3 +38,6 @@
 - 수정 금지 파일: assets/js/wage-core.js (사장님 시급 계산 엔진)
 - 명령어: /weekly-update, /check-standards, /update-policy-news, /update-news, /update-tips, /update-labor-qa, /update-videos — 원본은 .agents/workflows/
 - 테스트 명령: 따로 없음. 계산 결과 확인은 node scripts/record-wage-baseline.js, 링크 점검은 node scripts/check-links.js
+
+## 자동 운영 회사
+자동 운영 회사 규칙은 albaboss-hq/company/운영매뉴얼.md. main은 GitHub PR 병합으로만 바꾼다. claude/week-* 브랜치는 자동 운영 회사의 작업 공간이다.

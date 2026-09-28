@@ -4,6 +4,10 @@
 
 ---
 
+## 2026-09-28
+
+- [수정] 자동 운영 회사 규칙 연결(M3, 사이트 변화 없음) — CLAUDE.md 끝에 규칙 위치(본부 company/운영매뉴얼.md), main은 GitHub PR 병합으로만, claude/week-* 브랜치는 자동 운영 회사 작업 공간이라는 문장 추가
+
 ## 2026-09-25
 
 - [기능] 새 주소 albanboss.com 전환(M2) — 옛 주소(albanboss.moow-ui.workers.dev)·www·http 접속은 같은 경로·같은 ?값 그대로 https://albanboss.com 으로 한 번에 영구 이동(301). 옛 주소는 계속 켜 둠 (wrangler.jsonc, worker/index.js 추가)
