@@ -2602,9 +2602,10 @@
         listContainer.innerHTML = displayItems.map(item => {
           const tags = Array.isArray(item.tags) && item.tags.length > 0 ? item.tags.slice(0, 2) : (item.category ? [item.category] : []);
           const tagsHtml = tags.map(t => `<span class="tag-chip">#${escapeHtml(t)}</span>`).join('');
+          const tipHref = item.slug ? `tips/${encodeURIComponent(item.slug)}/` : 'tips.html';
           return `
             <li class="module-card-item">
-              <a href="tips.html" target="_blank" rel="noopener noreferrer" class="module-item-title-link" title="${escapeHtml(item.title)} 팁 전체보기">
+              <a href="${escapeHtml(tipHref)}" target="_blank" rel="noopener noreferrer" class="module-item-title-link" title="${escapeHtml(item.title)} 팁 자세히 보기">
                 ${escapeHtml(item.title)} <span class="external-link-arrow">↗</span>
               </a>
               <p class="module-item-desc">${escapeHtml(item.summary)}</p>
