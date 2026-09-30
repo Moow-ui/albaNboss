@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-09-30
+
+- [기능][W40-07] 대표지시(검색유입 2단계): 10월 대체공휴일(10/5)·한글날(10/9) 휴일수당 안내 개별 페이지(/tips/holiday-pay-october/) 신규 작성. 5인 이상/미만 차이, 시급제·월급제 계산 예시, 초단시간 근로자 예외를 근거 조문과 함께 정리하고 canonical·BreadcrumbList 구조화 데이터 적용. 메인 배너 '기준 확인하기' 링크를 이 페이지로 연결
+- [기능][W40-08] 대표지시(검색유입 1단계 일부): 세무·노무 팁 11개를 /tips/<slug>/ 개별 정적 페이지로 분리. data/tips.json에 slug·seo_title 필드 추가, /tips 목록의 검색·필터·태그 기능은 유지한 채 카드 클릭 시 개별 페이지로 이동하도록 변경, 홈 팁 위젯 링크도 개별 페이지로 연결
+- [예정] 노무 Q&A 개별 페이지화 및 sitemap.xml 신규 페이지 등록은 다음 실행에서 이어서 진행 (1단계 잔여·3단계)
+
 ## 2026-09-29
 
 - [디자인][W40-02] 공유 이미지(assets/images/og-image.svg·png) 워터마크 옛 주소(albanboss.moow-ui.workers.dev)를 albanboss.com으로 교체. png는 수정된 svg를 그대로 1200x630 렌더링해 재생성(.claude/scripts/regen-og-image.js)

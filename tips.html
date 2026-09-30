@@ -269,6 +269,13 @@
       border-color: #cbd5e1;
     }
 
+    .tip-card-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
     .tip-top-meta {
       display: flex;
       align-items: center;
@@ -752,24 +759,31 @@
             </div>`
           : '';
 
+        // 개별 페이지 주소(슬러그)가 있으면 카드 본문 전체를 그 페이지로 연결한다.
+        const detailHref = item.slug ? `tips/${encodeURIComponent(item.slug)}/` : '';
+        const cardBodyTag = detailHref ? 'a' : 'div';
+        const cardBodyAttrs = detailHref ? ` class="tip-card-link" href="${escapeHtml(detailHref)}"` : ' class="tip-card-link"';
+
         return `
           <li class="tip-card">
-            <div class="tip-top-meta">
-              <span class="badge-category ${catClass}">${safeCat}</span>
-              <span class="badge-target">대상: ${safeTarget}</span>
-            </div>
-            <h2 class="tip-title">${safeTitle}</h2>
-            <p class="tip-summary">${safeSummary}</p>
-            ${safeDetail ? `<div class="tip-callout">💡 <strong>핵심 포인트:</strong> ${safeDetail}</div>` : ''}
-            <div class="tip-meta-row">
-              <div class="tip-author-date">
-                <span>✍️ ${safeAuthor}</span>
-                <span style="color:#cbd5e1;">·</span>
-                <span>${safeDate}</span>
-                ${safeLaw ? `<span style="color:#cbd5e1;">·</span><span class="tip-law-badge" style="color:var(--color-primary);font-weight:600;">📜 ${safeLaw}</span>` : ''}
+            <${cardBodyTag}${cardBodyAttrs}>
+              <div class="tip-top-meta">
+                <span class="badge-category ${catClass}">${safeCat}</span>
+                <span class="badge-target">대상: ${safeTarget}</span>
               </div>
-              <div class="tip-tags">${tagsHtml}</div>
-            </div>
+              <h2 class="tip-title">${safeTitle}</h2>
+              <p class="tip-summary">${safeSummary}</p>
+              ${safeDetail ? `<div class="tip-callout">💡 <strong>핵심 포인트:</strong> ${safeDetail}</div>` : ''}
+              <div class="tip-meta-row">
+                <div class="tip-author-date">
+                  <span>✍️ ${safeAuthor}</span>
+                  <span style="color:#cbd5e1;">·</span>
+                  <span>${safeDate}</span>
+                  ${safeLaw ? `<span style="color:#cbd5e1;">·</span><span class="tip-law-badge" style="color:var(--color-primary);font-weight:600;">📜 ${safeLaw}</span>` : ''}
+                </div>
+                <div class="tip-tags">${tagsHtml}</div>
+              </div>
+            </${cardBodyTag}>
             ${calcButtonsHtml}
           </li>
         `;
