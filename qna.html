@@ -417,6 +417,17 @@
       background-color: #047857;
     }
 
+    .qna-detail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      padding: 5px 4px;
+      text-decoration: underline;
+    }
+
     .qna-tags {
       display: inline-flex;
       gap: 6px;
@@ -769,8 +780,11 @@
           ? `<a href="${safeCalc}" target="_blank" rel="noopener noreferrer" class="qna-calc-btn">계산해보기 →</a>`
           : '';
 
-        const itemId = item.id || (item.question && item.question.includes('삼일절, 광복절, 추석') ? 'holiday-pay' : '');
+        const itemId = item.slug || item.id || (item.question && item.question.includes('삼일절, 광복절, 추석') ? 'holiday-pay' : '');
         const idAttr = itemId ? ` id="${escapeHtml(itemId)}"` : '';
+        const detailHtml = item.slug
+          ? `<a href="qa/${encodeURIComponent(item.slug)}/" class="qna-detail-link">개별 페이지로 보기 →</a>`
+          : '';
 
         return `
           <li class="qna-item"${idAttr}>
@@ -784,6 +798,7 @@
               <div class="qna-actions-row">
                 ${lawHtml}
                 <div style="display:flex; align-items:center; gap:8px;">
+                  ${detailHtml}
                   ${calcHtml}
                   <div class="qna-tags">${tagsHtml}</div>
                 </div>
