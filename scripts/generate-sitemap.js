@@ -10,6 +10,23 @@ const { siteUrl } = require('./site-url');
 const ROOT_DIR = path.resolve(__dirname, '..');
 const BASE = siteUrl();
 
+function stripComments(raw) {
+  return raw.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*/g, '');
+}
+
+function readJson(relPath) {
+  return JSON.parse(stripComments(fs.readFileSync(path.join(ROOT_DIR, relPath), 'utf8')));
+}
+
+// 2026-W40 대표지시 3단계: /tips/<slug>/·/qa/<slug>/ 개별 페이지를 sitemap에 자동 등록한다.
+// (1단계에서 생성된 slug만 반영. slug 없는 항목은 목록 페이지로만 노출되므로 건너뛴다.)
+function slugPages(relPath, prefix) {
+  const items = readJson(relPath);
+  return items
+    .filter((item) => item.slug)
+    .map((item) => ({ loc: `/${prefix}/${item.slug}/`, priority: '0.6', changefreq: 'monthly' }));
+}
+
 const PAGES = [
   { loc: '/', priority: '1.0', changefreq: 'daily' },
   { loc: '/wage/', priority: '0.9', changefreq: 'weekly' },
@@ -17,6 +34,8 @@ const PAGES = [
   { loc: '/news.html', priority: '0.8', changefreq: 'daily' },
   { loc: '/tips.html', priority: '0.7', changefreq: 'weekly' },
   { loc: '/qna.html', priority: '0.7', changefreq: 'weekly' },
+  ...slugPages('data/tips.json', 'tips'),
+  ...slugPages('data/qna.json', 'qa'),
   { loc: '/videos.html', priority: '0.6', changefreq: 'weekly' },
   { loc: '/board.html', priority: '0.6', changefreq: 'daily' },
   { loc: '/privacy.html', priority: '0.3', changefreq: 'yearly' },
