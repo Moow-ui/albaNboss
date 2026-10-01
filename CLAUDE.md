@@ -41,4 +41,3 @@
 
 ## 자동 운영 회사
 자동 운영 회사 규칙은 albaboss-hq/company/운영매뉴얼.md. main은 GitHub PR 병합으로만 바꾼다. claude/week-* 브랜치는 자동 운영 회사의 작업 공간이다.
-<!-- 되돌리기 리허설 -->
