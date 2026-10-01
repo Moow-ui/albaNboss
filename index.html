@@ -1091,6 +1091,17 @@
       background-color: #047857;
     }
 
+    .qna-detail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.81rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      padding: 4px 2px;
+      text-decoration: underline;
+    }
+
     /* 카드 하단 고정 푸터 */
     .widget-fixed-footer {
       margin-top: auto;
@@ -2353,6 +2364,9 @@
           const calcBtnHtml = safeCalcLink
             ? `<a href="${safeCalcLink}" class="qna-calc-btn">계산해보기 →</a>`
             : '';
+          const detailHtml = item.slug
+            ? `<a href="qa/${encodeURIComponent(item.slug)}/" class="qna-detail-link">개별 페이지로 보기 →</a>`
+            : '';
 
           return `
             <li class="qna-item">
@@ -2368,6 +2382,7 @@
                     ${lawHtml}
                   </div>
                   <div class="meta-right-tags">
+                    ${detailHtml}
                     ${calcBtnHtml}
                   </div>
                 </div>
@@ -2602,9 +2617,10 @@
         listContainer.innerHTML = displayItems.map(item => {
           const tags = Array.isArray(item.tags) && item.tags.length > 0 ? item.tags.slice(0, 2) : (item.category ? [item.category] : []);
           const tagsHtml = tags.map(t => `<span class="tag-chip">#${escapeHtml(t)}</span>`).join('');
+          const tipHref = item.slug ? `tips/${encodeURIComponent(item.slug)}/` : 'tips.html';
           return `
             <li class="module-card-item">
-              <a href="tips.html" target="_blank" rel="noopener noreferrer" class="module-item-title-link" title="${escapeHtml(item.title)} 팁 전체보기">
+              <a href="${escapeHtml(tipHref)}" target="_blank" rel="noopener noreferrer" class="module-item-title-link" title="${escapeHtml(item.title)} 팁 자세히 보기">
                 ${escapeHtml(item.title)} <span class="external-link-arrow">↗</span>
               </a>
               <p class="module-item-desc">${escapeHtml(item.summary)}</p>

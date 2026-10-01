@@ -4,8 +4,23 @@
 
 ---
 
+## 2026-10-01
+
+- [기능][W40-09] 대표지시(검색유입 1단계 잔여): 노무 Q&A 16개를 /qa/<slug>/ 개별 정적 페이지로 분리(scripts/generate-qa-pages.js). data/qna.json에 slug·seo_title 필드 추가(기존 id·필드 유지, 기존 #holiday-pay 앵커 링크 보존). qna.html 아코디언과 홈 Q&A 위젯 둘 다 "개별 페이지로 보기" 링크 추가(기존 아코디언·검색 기능은 유지)
+- [기능][W40-10] 대표지시 3단계: sitemap.xml 생성 스크립트가 /tips/·/qa/ 개별 페이지 27개를 자동 포함하도록 개선(신규 팁·Q&A 추가 시 슬러그만 있으면 자동 반영). 계산기 title·description 개선안과 게시판 예시 글 숨김 방안은 코드 변경 없이 '제안만' albaboss-hq 결재함(company/결재함/2026-W40.md)에 기록
+
+## 2026-09-30
+
+- [기능][W40-07] 대표지시(검색유입 2단계): 10월 대체공휴일(10/5)·한글날(10/9) 휴일수당 안내 개별 페이지(/tips/holiday-pay-october/) 신규 작성. 5인 이상/미만 차이, 시급제·월급제 계산 예시, 초단시간 근로자 예외를 근거 조문과 함께 정리하고 canonical·BreadcrumbList 구조화 데이터 적용. 메인 배너 '기준 확인하기' 링크를 이 페이지로 연결
+- [기능][W40-08] 대표지시(검색유입 1단계 일부): 세무·노무 팁 11개를 /tips/<slug>/ 개별 정적 페이지로 분리. data/tips.json에 slug·seo_title 필드 추가, /tips 목록의 검색·필터·태그 기능은 유지한 채 카드 클릭 시 개별 페이지로 이동하도록 변경, 홈 팁 위젯 링크도 개별 페이지로 연결
+
+## 2026-09-29
+
+- [디자인][W40-02] 공유 이미지(assets/images/og-image.svg·png) 워터마크 옛 주소(albanboss.moow-ui.workers.dev)를 albanboss.com으로 교체. png는 수정된 svg를 그대로 1200x630 렌더링해 재생성(.claude/scripts/regen-og-image.js)
+
 ## 2026-09-28
 
+- [기능][W40-01] sitemap.xml·robots.txt 추가 — 정적 페이지 10개(메인·시급계산기·정책소식·최신뉴스·팁·Q&A·영상·게시판·개인정보처리방침·이용약관) 등록, 주소는 data/site.json의 site_url만 읽어 생성(scripts/generate-sitemap.js), robots.txt에 sitemap 위치 안내
 - [수정] 자동 운영 회사 규칙 연결(M3, 사이트 변화 없음) — CLAUDE.md 끝에 규칙 위치(본부 company/운영매뉴얼.md), main은 GitHub PR 병합으로만, claude/week-* 브랜치는 자동 운영 회사 작업 공간이라는 문장 추가
 
 ## 2026-09-25
